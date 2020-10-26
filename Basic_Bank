@@ -1,0 +1,144 @@
+#include<iostream>
+
+using namespace std;
+
+//Class declaration
+class bank_account
+{
+	public:
+	char name[50];
+	long int acc_no;
+	char acc_type[20];
+	float balance=0.0;
+	
+	 void init(void);
+	 void deposit(void);
+	 void withdraw(void);
+	 void display(void);
+	 
+};
+
+int main()
+{
+	start:
+	bank_account b[5];
+	int ch[3];
+	
+	//Input initial values
+	for(int i=0;i<5;i++)
+	{
+		cout<<"For Customer "<<i+1<<endl;
+		b[i].init();
+	}
+	
+	//Account to perform
+	choice1:
+	cout<<"Choose account from below :"<<endl;
+	for(int i=0;i<5;i++)
+	{cout<<i+1<<". Name : "<<b[i].name<<" & Account no. : "<<b[i].acc_no<<endl;}
+	cin>>ch[0];
+	if (ch[0]<1 || ch[0]>5)
+	{
+		cout<<"Please Enter correct option"<<endl;
+		goto choice1;
+	}
+	
+	//Operation to perform
+	choice2:
+	cout<<"Now choose operation to perform :"<<endl;
+	cout<<"1. Deposit to account\n"
+	      "2. Withdraw from account\n"
+	      "3. Display Name and account balance"<<endl;
+	cin>>ch[1];
+	switch(ch[1])
+	{
+		case 1:
+		b[ch[0]-1].deposit();
+		break;
+		
+		case 2:
+		b[ch[0]-1].withdraw();
+		break;
+		
+		case 3:
+		b[ch[0]-1].display();
+		break;
+		
+		default :
+		cout<<"Please enter correct option"<<endl;
+		goto choice2;
+	}
+	
+	//Final choice 
+	choice3:
+	cout<<"Now choose from below options :"<<endl;
+	cout<<"1. Choose other operation\n"
+	      "2. Choose another account\n"
+	      "3. Restart program\n"
+	      "4. Exit"<<endl;
+	cin>>ch[2];
+	switch(ch[2])
+	{
+		case 1:
+		goto choice2;
+		
+		case 2:
+		goto choice1;
+		
+		case 3:
+		goto start;
+		
+		case 4:
+		return 0;
+		
+		default :
+		cout<<"Please Enter correct option!"<<endl;
+		goto choice3;
+	}
+}
+
+void bank_account::init()
+{
+	cout<<"Enter name : ";
+	fflush(stdin); cin.get(name,50,'\n');
+	cout<<"Enter Account number : ";
+	cin>>acc_no;
+	cout<<"Enter Account type : ";
+	fflush(stdin); cin.get(acc_type,20,'\n');
+	cout<<"Account created !"<<endl;
+}
+
+void bank_account::deposit()
+{
+	float taken;
+	cout<<"Enter the amount to deposit : ";
+	cin>>taken;
+	balance+=taken;
+	cout<<"Entered amount deposited !";
+}
+
+void bank_account::withdraw()
+{
+	float given;
+	cout<<"Remaining balance = "<<balance<<endl;
+	cout<<"Enter the amount to withdraw : ";
+	cin>>given;
+	
+	if(given>balance)
+	{
+		cout<<"Insufficient Balance!"<<endl;
+	}
+	else
+	{
+		balance-=given;
+		cout<<"Entered amount withdrawn!\n"
+	      "Remaining balance = "<<balance<<endl;
+	}
+	
+}
+
+void bank_account::display()
+{
+	cout<<"Name : "<<name<<endl;
+	cout<<"Balance : "<<balance<<endl;
+}
