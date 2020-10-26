@@ -1,0 +1,82 @@
+#include<iostream>
+
+using namespace std;
+
+class Coordinate
+{
+	int x,y,z;
+	public:
+	Coordinate(){}
+	Coordinate(int a, int b, int c)
+	{
+		x=a; y=b; z=c;
+	}
+	
+	void set_xyz(int a,int b,int c)
+	{
+		x=a; y=b; z=c;
+	}
+	
+	void display()
+	{
+		cout<<"X = "<<x<<endl;
+		cout<<"Y = "<<y<<endl;
+		cout<<"Z = "<<z<<endl;
+	}
+	
+	Coordinate operator++()
+	{
+		x++; y++; z++;
+	}
+	
+	void operator--()
+	{
+		x--; y--; z--;
+	}
+	
+	void operator +=(Coordinate c)
+	{
+		x+=c.x; y+=c.y; z+=c.z;
+	}
+	bool operator ==(Coordinate c)
+	{
+		if ((x==c.x) && (y==c.y) && (z==c.z))
+		return true;
+		else 
+		return false;
+	}
+		
+};
+
+int main()
+{
+	int x,y,z;
+	cout<<"For first coordinate\nEnter x y z : ";
+	cin>>x>>y>>z;
+	Coordinate p1(x,y,z);
+	
+	cout<<"After increment : "<<endl;
+	++p1;
+	p1.display();
+	
+	cout<<"Again after decrement : "<<endl;
+	--p1;
+	p1.display();
+	
+		cout<<"For coordinate to add\nEnter x y z : ";
+	cin>>x>>y>>z;
+	Coordinate p2(x,y,z);
+	
+	p1+=p2;
+	cout<<"First coordinate after adding becomes : "<<endl;
+	p1.display();
+	
+	cout<<"For coordinate to compare with first\nEnter x y z : ";
+	cin>>x>>y>>z;
+	Coordinate p3(x,y,z);
+	if(p1==p3)
+	cout<<"Both coordinate are same"<<endl;
+	else
+	cout<<"Both are not same!!"<<endl<<endl;
+	return 0;
+}
